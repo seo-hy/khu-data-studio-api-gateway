@@ -1,0 +1,38 @@
+server:
+  port: 8000
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 'http://localhost:8080'
+            allow-credentials: true
+            allowedHeaders: '*'
+            allowedMethods:
+              - PUT
+              - GET
+              - POST
+              - DELETE
+              - OPTIONS
+      routes:
+        - id: dataset-api
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/dataset-api/**
+        - id: cleaning-api
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/cleaning-api/**
