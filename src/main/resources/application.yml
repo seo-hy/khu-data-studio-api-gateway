@@ -3,8 +3,8 @@ server:
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
 
@@ -18,7 +18,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: 'http://localhost:8080'
+            allowedOrigins: 'http://localhost:8081'
             allow-credentials: true
             allowedHeaders: '*'
             allowedMethods:
@@ -29,10 +29,10 @@ spring:
               - OPTIONS
       routes:
         - id: dataset-api
-          uri: http://localhost:8081/
-          predicates:
-            - Path=/dataset-api/**
-        - id: cleaning-api
           uri: http://localhost:8082/
           predicates:
-            - Path=/cleaning-api/**
+            - Path=/dataset-api/**
+        - id: preprocessing-api
+          uri: http://localhost:8083/
+          predicates:
+            - Path=/preprocessing-api/**
