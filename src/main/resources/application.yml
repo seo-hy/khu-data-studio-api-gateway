@@ -35,4 +35,4 @@ spring:
         - id: preprocessing-api
           uri: http://localhost:8083/
           predicates:
-            - Path=/preprocessing-api/**
+            - Path=/cleaning-api/**
